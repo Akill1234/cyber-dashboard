@@ -34,7 +34,7 @@ export default function LoginPage() {
 
         // Validate Institutional Credentials
         setTimeout(() => {
-            if (email === "Akil" && password === "akil@1234") {
+            if (email === "user@gmail.com" && password === "user@1234") {
                 setIsLoading(false)
                 setIsSuccess(true)
                 setTimeout(() => {
