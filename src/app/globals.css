@@ -3,25 +3,177 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 210 20% 98%;
+  --foreground: 224 71.4% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 224 71.4% 4.1%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 71.4% 4.1%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  --radius: 0.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.dark {
+  --background: 210 60% 11%;
+  /* #0B1C2D equivalent HSL is approx 210 60% 11% */
+  --foreground: 210 40% 98%;
+  --card: 210 60% 13%;
+  --card-foreground: 210 40% 98%;
+  --popover: 210 60% 11%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 191 100% 50%;
+  /* Cyan accent #00FFFF */
+  --primary-foreground: 210 60% 11%;
+  --secondary: 210 30% 20%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 210 30% 15%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 210 30% 20%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 210 30% 20%;
+  --input: 210 30% 20%;
+  --ring: 191 100% 50%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground transition-colors duration-500;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .glass {
+    @apply bg-background/60 backdrop-blur-xl border border-white/10;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
   }
+
+  .glass-card {
+    @apply bg-card/40 backdrop-blur-md border border-white/5 shadow-xl transition-all duration-300;
+  }
+
+  .premium-shadow {
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.2);
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:border-primary/40;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.2);
+  }
+
+  .card-lift {
+    @apply transition-all duration-300;
+  }
+
+  .card-lift:hover {
+    @apply -translate-y-1.5;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+  }
+
+  .cyan-glow {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-primary/20 rounded-full hover:bg-primary/40 transition-colors;
+}
+
+::selection {
+  @apply bg-primary/30 text-primary-foreground;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageFadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-in {
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in {
+  animation-name: fadeIn;
+}
+
+.slide-in-from-bottom-4 {
+  animation-name: slideInFromBottom;
+}
+
+/* Duration utilities */
+.duration-700 {
+  animation-duration: 700ms;
+}
+
+.duration-1000 {
+  animation-duration: 1000ms;
+}
+
+.ease-out {
+  animation-timing-function: ease-out;
 }
